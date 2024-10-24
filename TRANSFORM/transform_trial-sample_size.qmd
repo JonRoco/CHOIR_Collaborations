@@ -1,0 +1,74 @@
+---
+title: "The TRANSFORM Trial: Sample Size Justification and Power Analysis"
+format:
+  html:
+    embed-resources: true
+editor: visual
+bibliography: references.bib
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| message: false
+library(pwr)
+library(tidyverse)
+```
+
+### Sample size justification
+
+This study is a prospective, randomised, double-blind Phase II pilot clinical trial comparing MDMA psychedelic assisted psychotherapy (MDMA-PAP) with an active comparator (dexamfetamine) in the treatment of co-morbid chronic pain and post-traumatic stress disorder (PTSD).
+
+The primary endpoint is the mean change in pain intensity — assessed on a 0 to 10 numerical rating scale — between MDMA-PAP (treatment) and dexamfetamine (control) groups, measured at 1 month post treatment completion.
+
+This sample size calculation is based on data from [@christie2022]. In this study, the Chronic Pain Grade (CPG) mean values were 51.9 pre-treatment and 67 post-treatment, with a p-value of 0.034 in the hight pain intensity group. The estimated standard deviation (SD) from this data was calculated as follows:
+
+```{r}
+# Sample size of the high-intensity group
+n <- 9
+
+# Pre- and post-treatment mean values
+pretxt <- 51.9
+postxt <- 67
+
+# p-value
+p_value <- 0.034
+
+# Degrees of freedom
+df <- n - 1
+
+# t-statistic for a one-sample test
+t_stat <- qt(1 - p_value/2, df)
+
+# Sample standard deviation calculation
+sd <- abs(pretxt - postxt) / t_stat * sqrt(n)
+
+cat('Standard deviation:', round(sd))
+```
+
+Then, assuming a within-group standard deviation of 18, a mean change of 15 points in pain intensity between participants treated with MDMA-PAP and dexamfetamine (with no change expected in the control group over time), the power for detecting this difference with a sample size of 20 participants per group is calculated as follows:
+
+```{r}
+power.t.test(delta = 15, sd = round(sd), n=20)
+```
+
+Thus, a total sample size of 40 participants (20 per group) will provide more than 70% power to detect a statistically significant difference in the mean change from baseline in pain intensity scores at 1 month post treatment completion.
+
+### Other Studies
+
+A placebo-controlled Phase 3 trial published by [@mitchell2023] evaluated the effects of MDMA-assisted therapy compared to placebo in participants with moderate to severe PTSD. The mean change in total severity score from baseline to 18 weeks was -23.7 for MDMA-AT compared to -14.8 for placebo with therapy, resulting in a treatment difference of -8.9 (-13.70, -4.12), with a p-value \< 0.001. The effect size (Cohen’s d) for MDMA-AT versus placebo with therapy was calculated as d = 0.7.
+
+From this study, the standard deviation of the difference between treatment and control was:
+
+```{r}
+mitchell_sd <- 8.9/0.7
+mitchell_sd
+```
+
+Then, with 70% power, the sample size is estimated as:
+
+```{r}
+power.t.test(delta=8.9, sd = round(mitchell_sd), power = 0.7)
+```
+
+This result align closely with our previous calculations, providing additional support for the proposed sample size.
