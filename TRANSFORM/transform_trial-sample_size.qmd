@@ -21,7 +21,7 @@ This study is a prospective, randomised, double-blind Phase II pilot clinical tr
 
 The primary endpoint is the mean change in pain intensity — assessed on a 0 to 10 numerical rating scale — between MDMA-PAP (treatment) and dexamfetamine (control) groups, measured at 1 month post treatment completion.
 
-This sample size calculation is based on data from [@christie2022]. In this study, the Chronic Pain Grade (CPG) mean values were 67 pre-treatment and 51.9 post-treatment, with a p-value of 0.034 in the hight pain intensity group. The estimated standard deviation (SD) from this data was calculated as follows:
+This sample size calculation is based on data from [@christie2022]. In this study, the Chronic Pain Grade (CPG) mean values were 67 pre-treatment and 51.9 post-treatment, with a p-value of 0.034 in the hight pain intensity group. The estimated standard deviation of the change score was calculated as follows:
 
 ```{r}
 # Sample size of the high-intensity group
